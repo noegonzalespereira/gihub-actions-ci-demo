@@ -1,4 +1,4 @@
-name: CI Basico
+name: CI con Linting
 
 on:
   push:
@@ -12,15 +12,18 @@ jobs:
 
     steps:
       - name: Checkout del codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
       - name: Instalar dependencias
         run: npm ci
+
+      - name: Ejecutar linting
+        run: npm run lint
 
       - name: Ejecutar pruebas
         run: npm test
