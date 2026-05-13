@@ -4,17 +4,27 @@ import globals from "globals";
 export default [
   js.configs.recommended,
   {
+    // Aplicar a tus archivos de la aplicación
+    files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: "commonjs",
+      ecmaVersion: "latest",
+      sourceType: "commonjs", // Para que no falle con tus 'require'
       globals: {
-        ...globals.node, // Esto arregla el error de 'process' en server.js
-        ...globals.jest, // Esto arregla los errores de 'describe', 'test', etc.
+        ...globals.node,
+        ...globals.jest,
       },
     },
     rules: {
-      "no-unused-vars": "warn", // Cambia a 'error' si quieres ser más estricto
+      "no-unused-vars": "warn",
       "no-undef": "error",
     },
   },
+  {
+    // Configuración especial para que el propio archivo .mjs no de error
+    files: ["eslint.config.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module", // Aquí sí permitimos 'import'
+    },
+  }
 ];
